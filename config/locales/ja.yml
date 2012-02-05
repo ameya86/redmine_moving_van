@@ -1,0 +1,12 @@
+ja:
+  label_moving_van: 引越し
+  label_moving_van_export: 荷造りをする
+  label_moving_van_import: 荷物を運び込む
+
+  button_export: エクスポート
+  button_import: インポート
+
+  text_moving_van_import_notice: ”引越し”機能において出力したCSVファイルしか使えません。
+  text_moving_van_export_notice: 文字コードはUTF8、改行コードはサーバ依存（WindowsはCRLF、LinuxはLF）、区切り文字はカンマ（,）になります。
+
+  warning_moving_van_need_file: ファイルを選択してください。

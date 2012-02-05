@@ -1,0 +1,45 @@
+<h2><%= l(:label_moving_van) %></h2>
+
+<% form_tag({:controller => 'moving_van', :action => 'import'}, {:multipart => true}) do %>
+<h3><%= l(:label_moving_van_import) %></h3>
+<fieldset>
+  <%= file_field_tag('import_file', :size => 60, :class => 'file') %>
+  <p>
+    <%= submit_tag(l(:button_import)) %>
+    <%= l(:text_moving_van_import_notice) %>
+  </p>
+</fieldset>
+<% end %>
+
+<p>&nbsp;</p>
+
+<h3><%= l(:label_moving_van_export) %></h3>
+
+<% form_tag({:controller => 'moving_van', :action => 'export'}) do %>
+<table class="project list">
+<thead>
+  <tr>
+    <th></th>
+    <th><%= l(:label_project) %></th>
+    <th><%= l(:label_issue) %></th>
+  </tr>
+</thead>
+<tbody>
+<% @projects.each do |project| %>
+  <tr>
+    <td class="center"><%= check_box_tag('moving_van[project][]', project.id) %></td>
+    <td><%= link_to_project(project) %></td>
+    <td class="center"><%= check_box_tag('moving_van[issue][]', project.id) %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<p>
+  <%= submit_tag(l(:button_export)) %>
+  <%= l(:text_moving_van_export_notice) %>
+</p>
+
+<% end %>
+
+<% html_title(l(:label_moving_van)) %>
