@@ -1,22 +1,22 @@
 = Moving Van
 
-  Redmine‚Ìˆø‰z‚µ‚ðs‚¤ƒvƒ‰ƒOƒCƒ“‚Å‚·B
-  ƒvƒƒWƒFƒNƒg‚âƒ`ƒPƒbƒg‚ð1–‡‚ÌCSVƒtƒ@ƒCƒ‹‚ÉƒGƒNƒXƒ|[ƒg‚µA
-  ‘¼‚ÌRedmine‚ÅƒCƒ“ƒ|[ƒg‚·‚é‚±‚Æ‚ÅAˆø‰z‚µ‚ðs‚¢‚Ü‚·B
+  Redmineã®å¼•è¶Šã—ã‚’è¡Œã†ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã§ã™ã€‚
+  ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚„ãƒã‚±ãƒƒãƒˆã‚’1æžšã®CSVãƒ•ã‚¡ã‚¤ãƒ«ã«ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆã—ã€
+  ä»–ã®Redmineã§ã‚¤ãƒ³ãƒãƒ¼ãƒˆã™ã‚‹ã“ã¨ã§ã€å¼•è¶Šã—ã‚’è¡Œã„ã¾ã™ã€‚
 
-  ŽÀ‘•‚Å‚«‚Ä‚¢‚é‹@”\
-  EƒvƒƒWƒFƒNƒg‚Ìˆø‰z‚µiƒgƒ‰ƒbƒJ[‚ÆƒJƒXƒ^ƒ€ƒtƒB[ƒ‹ƒh‚Ì—˜—pƒ`ƒFƒbƒNž‚Ýj
-  Eƒ`ƒPƒbƒgi—š—ðž‚Ýj
-    =>eŽqŠÖŒW‚ÌÄŒ»‚ª‚Ü‚¾o—ˆ‚Ä‚¢‚È‚¢
-
-
-== ƒCƒ“ƒXƒg[ƒ‹
-
-RAILS_ROOT/vendor/plugins‚Éredmine_moving_van‚ð”z’u‚µARedmine‚ðÄ‹N“®‚µ‚Ü‚·B
+  å®Ÿè£…ã§ãã¦ã„ã‚‹æ©Ÿèƒ½
+  ãƒ»ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã®å¼•è¶Šã—ï¼ˆãƒˆãƒ©ãƒƒã‚«ãƒ¼ã¨ã‚«ã‚¹ã‚¿ãƒ ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®åˆ©ç”¨ãƒã‚§ãƒƒã‚¯è¾¼ã¿ï¼‰
+  ãƒ»ãƒã‚±ãƒƒãƒˆï¼ˆå±¥æ­´è¾¼ã¿ï¼‰
+    =>è¦ªå­é–¢ä¿‚ã®å†ç¾ãŒã¾ã å‡ºæ¥ã¦ã„ãªã„
 
 
-== XV—š—ð
+== ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
+
+RAILS_ROOT/vendor/pluginsã«redmine_moving_vanã‚’é…ç½®ã—ã€Redmineã‚’å†èµ·å‹•ã—ã¾ã™ã€‚
+
+
+== æ›´æ–°å±¥æ­´
 
 === Version 0.0.1
 
-  Ž©ŒÈÓ”C”Å‚Å‚·B
+  è‡ªå·±è²¬ä»»ç‰ˆã§ã™ã€‚
