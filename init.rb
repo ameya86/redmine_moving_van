@@ -2,8 +2,8 @@ require 'redmine'
 
 Redmine::Plugin.register :redmine_moving_van do
   name 'Redmine Moving Van plugin'
-  author 'Author name'
-  description 'This is a plugin for Redmine'
+  author 'OZAWA Yasuhiro'
+  description 'Export and Import redmine datas'
   version '0.0.1'
   url 'https://github.com/ameya86/redmine_moving_van'
 
