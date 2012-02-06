@@ -1,7 +1,7 @@
 module MovingVan
   HEADER_NAMES = {
     "Project" => %w(id name description homepage is_public parent_id created_on updated_on identifier status enabled_module_names trackers custom_fields),
-    "Issue" => %w(id tracker project_id subject description due_date category_id status_id assigned_to_id priority_id fixed_version_id author_id created_on updated_on start_date done_ratio estimated_hours parent_id is_private),
+    "Issue" => %w(id tracker_id project_id subject description due_date category_id status_id assigned_to_id priority_id fixed_version_id author_id created_on updated_on start_date done_ratio estimated_hours parent_id is_private),
     "Category" => %w(id project_id name assigned_to_id),
     "Journal" => %w(id journalized_id journalized_type user_id notes created_on),
     "JournalDetail" => %w(id journal_id property prop_key old_value value),

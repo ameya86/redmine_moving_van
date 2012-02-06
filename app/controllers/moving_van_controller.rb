@@ -27,7 +27,9 @@ class MovingVanController < ApplicationController
   def import
     if request.post? && params[:import_file]
       # Import
-      import_from_csv(params[:import_file])
+      ActiveRecord::Base.transaction do
+        import_from_csv(params[:import_file])
+      end
       redirect_to :action => 'index'
     else
       flash[:warning] = l(:warning_moving_van_need_file)

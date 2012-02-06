@@ -31,8 +31,8 @@ module MovingVan::Importer
         case @mode
         when 'Project' then import_project(data)
         when 'Issue' then import_issue(data)
-        when 'Journal' then import_issue(data)
-        when 'JournalDetail' then import_issue(data)
+        when 'Journal' then import_journal(data)
+        when 'JournalDetail' then import_journal_detail(data)
         end
       end
       @line_count += 1
@@ -57,7 +57,8 @@ module MovingVan::Importer
       @failed_saves['Project'] << data.first
     else
       project = Project.new(attributes)
-      if project.save
+      if project.save!
+        project.set_allowed_parent!(attributes['parent_id']) if attributes.has_key?('parent_id')
         @translate_ids['Project'] ||= {}
         @translate_ids['Project'][data.first] = project.id
       else
@@ -70,10 +71,10 @@ module MovingVan::Importer
   # Issue
   def import_issue(data)
     attributes = convert_issue(data)
-RAILS_DEFAULT_LOGGER.info attributes.inspect
+
     unsaved_issue_id = attributes.delete('id')
     issue = Issue.new(attributes)
-    if issue.save
+    if issue.save!
       @translate_ids['Issue'] ||= {}
       @translate_ids['Issue'][unsaved_issue_id] = issue.id
     else
@@ -88,9 +89,9 @@ RAILS_DEFAULT_LOGGER.info attributes.inspect
 
     unsaved_journal_id = attributes.delete('id')
     journal = Journal.new(attributes)
-    if journal.save
+    if journal.save!
       @translate_ids['Journal'] ||= {}
-      @translate_ids['Journal'][unsaved_issue_id] = journal.id
+      @translate_ids['Journal'][unsaved_journal_id] = journal.id
     else
       @failed_saves['Journal'] ||= []
       @failed_saves['Journal'] << data.first
@@ -98,14 +99,14 @@ RAILS_DEFAULT_LOGGER.info attributes.inspect
   end
 
   # JournalDetail
-  def import_journal_datail(data)
-    attributes = convert_journal_datail(data)
+  def import_journal_detail(data)
+    attributes = convert_journal_detail(data)
 
-    unsaved_journal_datail_id = attributes.delete('id')
-    journal_datail = JournalDetail.new(attributes)
-    if journal_datail.save
+    unsaved_detail_id = attributes.delete('id')
+    journal_detail = JournalDetail.new(attributes)
+    if journal_detail.save!
       @translate_ids['JournalDetail'] ||= {}
-      @translate_ids['JournalDetail'][unsaved_issue_id] = journal_datail.id
+      @translate_ids['JournalDetail'][unsaved_detail_id] = journal_detail.id
     else
       @failed_saves['JournalDetail'] ||= []
       @failed_saves['JournalDetail'] << data.first
@@ -150,11 +151,11 @@ RAILS_DEFAULT_LOGGER.info attributes.inspect
           tracker = Tracker.find_by_name(item)
           tracker ? tracker.id : Tracker.first.id
         when 'project_id'
-          project = Project.find(:first, :select => 'id', :conditions => ['identifier = ?', item])
+          project = Project.find(:first, :conditions => ['identifier = ?', item])
           if project
             project.id
           else
-            raise ActiveRecord::RecordNotFound, "Project not found."
+            raise ActiveRecord::RecordNotFound, "Project not found. #{item}"
           end
         when 'category_id'
           category = IssueCategory.find_by_name(item)
@@ -164,7 +165,7 @@ RAILS_DEFAULT_LOGGER.info attributes.inspect
           if status
             status.id
           else
-            raise ActiveRecord::RecordNotFound, l(:error_no_default_issue_status)
+            raise ActiveRecord::RecordNotFound, "#{l(:error_no_default_issue_status)} #{item}"
           end
         when 'assigned_to_id', 'author_id' # Principal
           convert_user_from_name(item).id
@@ -173,12 +174,19 @@ RAILS_DEFAULT_LOGGER.info attributes.inspect
           if priority
             priority.id
           else
-            raise ActiveRecord::RecordNotFound, "Priority not found."
+            raise ActiveRecord::RecordNotFound, "Priority not found. #{item}"
           end
         when 'fixed_version_id'
           if project
-#            versions = project.shared_versions.select{|v| item == v.name}
-#            1 == versions.length ? versions.first.id : nil
+            versions = project.shared_versions.select{|v| item == v.name}
+            1 == versions.length ? versions.first.id : nil
+          else
+            nil
+          end
+        when 'parent_id'
+          if item && @translate_ids['Issue']
+            issue = Issue.find_by_id(@translate_ids['Issue'][item])
+            issue ? issue.id : nil
           else
             nil
           end

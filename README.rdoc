@@ -1,3 +1,22 @@
-= moving_van
+= Moving Van
 
-Description goes here
+  Redmineの引越しを行うプラグインです。
+  プロジェクトやチケットを1枚のCSVファイルにエクスポートし、
+  他のRedmineでインポートすることで、引越しを行います。
+
+  実装できている機能
+  ・プロジェクトの引越し（トラッカーとカスタムフィールドの利用チェック込み）
+  ・チケット（履歴込み）
+    =>親子関係の再現がまだ出来ていない
+
+
+== インストール
+
+RAILS_ROOT/vendor/pluginsにredmine_moving_vanを配置し、Redmineを再起動します。
+
+
+== 更新履歴
+
+=== Version 0.0.1
+
+  自己責任版です。

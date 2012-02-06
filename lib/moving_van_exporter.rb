@@ -1,17 +1,39 @@
+# CSVにエクスポートする
 module MovingVan::Exporter
   include MovingVan
 
+  # 処理順序
+  PROCESSING_SORT = [
+    'Project',
+    'Issue',
+    'Journal',
+    'JournalDetail',
+  ]
+
+  # 渡されたターゲットのデータをCSV化する
   def export_to_csv(params)
     if params['issue']
       params['journal'] = params['issue'] unless params['journal']
       params['journal_detail'] = params['issue'] unless params['journal_detail']
     end
-RAILS_DEFAULT_LOGGER.info params.inspect
+
     all_datas = export_datas(params)
     decimal_separator = l(:general_csv_decimal_separator)
     encoding = l(:general_csv_encoding)
 
     return FCSV.generate(:col_sep => l(:general_csv_separator)) do |csv|
+      # 処理順序の影響する項目は先に順序付けに従って処理する
+      PROCESSING_SORT.each do |key|
+        values = all_datas.delete(key)
+        if values
+          csv << ["##{key}"]
+          csv << header_names(key)
+          values.each{|value| csv << value}
+          # data type separator is empty line
+          csv << []
+        end
+      end
+      # 残りのデータを処理する
       all_datas.each do |key, values|
         csv << ["##{key}"]
         csv << header_names(key)
@@ -106,6 +128,7 @@ RAILS_DEFAULT_LOGGER.info params.inspect
 
   def export_journal_detail(journal_detail) 
     return [
+      journal_detail.id,
       journal_detail.journal_id,
       journal_detail.property,
       journal_detail.prop_key,
